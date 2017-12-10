@@ -15,7 +15,17 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
     	</div>
     	<div class="recommend-list">
     		<h1 class="list-title">热门歌单推荐</h1>
-    		<ul></ul>
+    		<ul>
+				<li :key="index" v-for="(item, index) in discList" class="item">
+					<div class="icon">
+						<img height="60" width="60" :src="item.imgurl" />
+					</div>
+					<div class="text">
+						<h2 class="name" v-html="item.creator.name"></h2>
+						<p class="desc" v-html="item.dissname"></p>
+					</div>
+				</li>
+			</ul>
     	</div>
     </div>
     <router-view></router-view>
@@ -30,7 +40,8 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 	export default {
 		data() {
 			return {
-				recommends: []
+				recommends: [],
+				discList: []
 			}
 		},
 		created() {
@@ -48,7 +59,8 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 			_getDiscList() {
 				getDiscList().then( (res) => {
 					if (res.code === ERR_OK) {
-
+						this.discList = res.data.list
+						//console.log(res.data.list);
 					}
 				})
 			}
