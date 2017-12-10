@@ -3,43 +3,56 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 -->
 <template>
   <div class="recommend" ref="recommend">
-    <div class="recommend-content">
-    	<div v-if="recommends.length" class="slider-wrapper">
-    		<slider>
-    			<div v-for="(item, index) in recommends" :key="index">
-    				<a :href="item.linkUrl">
-    					<img :src="item.picUrl">
-    				</a> 
-    			</div>
-    		</slider>
-    	</div>
-    	<div class="recommend-list">
-    		<h1 class="list-title">热门歌单推荐</h1>
-    		<ul>
-				<li :key="index" v-for="(item, index) in discList" class="item">
-					<div class="icon">
-						<img height="60" width="60" :src="item.imgurl" />
+    <scroll ref="scroll" class="recommend-content" :data="discList">
+		<div>
+			<div v-if="recommends.length" class="slider-wrapper">
+				<slider>
+					<div v-for="(item, index) in recommends" :key="index">
+						<a :href="item.linkUrl">
+							<img class="needsclick" @load="loadImage" :src="item.picUrl">
+						</a> 
 					</div>
-					<div class="text">
-						<h2 class="name" v-html="item.creator.name"></h2>
-						<p class="desc" v-html="item.dissname"></p>
-					</div>
-				</li>
-			</ul>
-    	</div>
-    </div>
-    <router-view></router-view>
+				</slider>
+			</div>
+			<div class="recommend-list">
+				<h1 class="list-title">热门歌单推荐</h1>
+				<ul>
+					<li @click="selectItem(item)" :key="index" v-for="(item, index) in discList" class="item">
+						<div class="icon">
+							<img height="60" width="60" v-lazy="item.imgurl" />
+						</div>
+						<div class="text">
+							<h2 class="name" v-html="item.creator.name"></h2>
+							<p class="desc" v-html="item.dissname"></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="loading-container" v-show="!discList.length">
+			<loading></loading>
+		</div>
+    </scroll>
+	<router-view></router-view>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+	import Scroll from 'base/scroll/scroll'
 	import Slider from 'base/slider/slider'
+	import Loading from 'base/loading/loading'
 	import {getRecommend, getDiscList} from 'api/recommend'
 	import {ERR_OK} from 'api/config'
 
 	export default {
+		components: {
+			Slider,
+			Scroll,
+			Loading
+		},
 		data() {
 			return {
+				checkLoaded: false,
 				recommends: [],
 				discList: []
 			}
@@ -49,6 +62,17 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 			this._getDiscList()
 		},
 		methods: {
+			handlePlaylist(playList) {
+				const bottom = playList.length > 0 ? '60px' : ''
+				this.$refs.recommend.style.bottom = bottom
+				this.$refs.scroll.refresh()
+			},
+			selectItem(item) {
+				this.$router.push({
+				path: `/recommend/${item.dissid}`
+				})
+				this.setDisc(item)
+			},
 			_getRecommend() {
 				getRecommend().then( (res) => {
 					if (res.code === ERR_OK) {
@@ -60,13 +84,16 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 				getDiscList().then( (res) => {
 					if (res.code === ERR_OK) {
 						this.discList = res.data.list
-						//console.log(res.data.list);
+						//console.log(res.data.list)
 					}
 				})
+			},
+			loadImage() {
+				if (!this.checkLoaded) {
+					this.$refs.scroll.refresh()
+					this.checkLoaded = true
+				}
 			}
-		},
-		components: {
-			Slider
 		}
 	}
 </script>

@@ -6,9 +6,10 @@
 
  <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
-  
+  /**https://neurotoxinvx.github.io/better-scroll/1970/01/01/options/ */
   export default {
     props: {
+      /**监听事件的触发时间，1为即时触发，3为延迟到事件完毕后触发 */
       probeType: {
         type: Number,
         default: 1
@@ -44,6 +45,9 @@
       }, 20)
     },
     methods: {
+      /**
+       * 初始化Scroll
+       */
       _initScroll() {
         if (!this.$refs.wrapper) {
           return
