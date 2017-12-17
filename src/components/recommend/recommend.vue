@@ -43,6 +43,8 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 	import Loading from 'base/loading/loading'
 	import {getRecommend, getDiscList} from 'api/recommend'
 	import {ERR_OK} from 'api/config'
+	import {playlistMixin} from 'common/js/mixin'
+	import {mapMutations} from 'vuex'
 
 	export default {
 		components: {
@@ -50,6 +52,7 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 			Scroll,
 			Loading
 		},
+		mixins: [playlistMixin],
 		data() {
 			return {
 				checkLoaded: false,
@@ -93,7 +96,10 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 					this.$refs.scroll.refresh()
 					this.checkLoaded = true
 				}
-			}
+			},
+			...mapMutations({
+				setDisc: 'SET_DISC'
+			})
 		}
 	}
 </script>

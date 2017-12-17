@@ -30,12 +30,12 @@ export function getSingerDetail(singerId) {
         hostUin: 0,
         needNewCode: 0,
         order: 'listen',
-        platform: 'yqq',
+        platform: 'h5page',
         begin: 0,
-        num: 30,
+        num: 200,
         songstatus: 1,
         singermid: singerId,
-        g_tk: 5381
+        g_tk: 2001751543
     })
     return jsonp(url, data, options)
 }

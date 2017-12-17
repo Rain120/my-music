@@ -22,6 +22,9 @@
         type: Array,
         default: null
       },
+      /**@augments
+       * @description 是否监听滚动组件
+       */
       listenScroll: {
         type: Boolean,
         default: false
@@ -56,7 +59,9 @@
           probeType: this.probeType,
           click: this.click
         })
-
+        /**@description
+         * 监听滚动事件
+         */
         if (this.listenScroll) {
           let me = this
           this.scroll.on('scroll', (pos) => {
@@ -86,9 +91,15 @@
       refresh() {
         this.scroll && this.scroll.refresh()
       },
+      /**@function
+       * @description 滚动到某个位置
+       */
       scrollTo() {
         this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
       },
+      /**@function
+       * @description 滚动到某个元素
+       */
       scrollToElement() {
         this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
       }

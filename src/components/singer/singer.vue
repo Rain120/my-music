@@ -10,6 +10,8 @@
   import Singer from 'common/js/singer'
   import ListView from 'base/listview/listview'
   import { ERR_OK } from 'api/config'
+  import { mapMutations } from 'vuex'
+  import {playlistMixin} from 'common/js/mixin'
 
   const HOT_NAME = '热门'
   const HOT_SINGER_LEN = 10
@@ -18,6 +20,7 @@
     components: {
       ListView
     },
+    mixins: [playlistMixin],
     data() {
       return {
         singers: []
@@ -32,6 +35,9 @@
         this.$refs.singer.style.bottom = bottom
         this.$refs.list.refresh()
       },
+      /**@description
+       * 路由跳轉到指定ID
+       */
       selectSinger(singer) {
         this.$router.push({
           path: `/singer/${singer.id}`
@@ -42,7 +48,6 @@
         getSingerList().then( (res) => {
           if (res.code === ERR_OK) {
             this.singers = this._normalizeSinger(res.data.list)
-            console.log(this.singers);
           }
         })
       },
@@ -72,7 +77,6 @@
               name: item.Fsinger_name
           }))
         })
-        console.log(map)
         /**@description 为了得到有序列表， 我们需要处理map */
         let hot = []    //热门歌手
         let ret = []
@@ -89,7 +93,10 @@
           return a.title.charCodeAt(0) - b.title.charCodeAt(0)
         })
         return hot.concat(ret)
-      }
+      },
+      ...mapMutations({
+        setSinger: 'SET_SINGER'
+      })
     }
   }
 </script>

@@ -21,7 +21,12 @@ export function hasClass(el, className) {
     let reg = new RegExp('(^|\\s)' + className + '(\\s|$)')
     return reg.test(el.className)
 }
-
+/**
+ * 获取index的值
+ * @param {*} el DOM对象
+ * @param {*} name 
+ * @param {*} val 通常是get / set
+ */
 export function getData(el, name, val) {
     const prefix = 'data-'
     name = prefix + name
