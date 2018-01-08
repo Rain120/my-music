@@ -1,15 +1,19 @@
 import { commonParams } from './config'
 import axios from 'axios'
 
+/**
+ * 获取歌词
+ * @param {*歌曲id} mid 
+ */
 export function getLyric(mid) {
     const url = '/api/lyric'
     const data = Object.assign({}, commonParams, {
         songmid: mid,
         pcachetime: +new Date(),
-        platform: 'h5',
+        platform: 'yqq',
         hostUin: 0,
         needNewCode: 0,
-        g_tk: 2001751543,
+        g_tk: 1536882860,
         format: 'jsonp'
     })
 

@@ -33,6 +33,7 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 			<loading></loading>
 		</div>
     </scroll>
+	<!-- 二级路由容器 -->
 	<router-view></router-view>
   </div>
 </template>
@@ -47,11 +48,6 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 	import {mapMutations} from 'vuex'
 
 	export default {
-		components: {
-			Slider,
-			Scroll,
-			Loading
-		},
 		mixins: [playlistMixin],
 		data() {
 			return {
@@ -72,7 +68,7 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 			},
 			selectItem(item) {
 				this.$router.push({
-				path: `/recommend/${item.dissid}`
+					path: `/recommend/${item.dissid}`
 				})
 				this.setDisc(item)
 			},
@@ -80,6 +76,7 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 				getRecommend().then( (res) => {
 					if (res.code === ERR_OK) {
 						this.recommends = res.data.slider
+						//console.log(res.data.slider)						
 					}
 				})
 			},
@@ -100,6 +97,11 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 			...mapMutations({
 				setDisc: 'SET_DISC'
 			})
+		}, 
+		components: {
+			Slider,
+			Scroll,
+			Loading
 		}
 	}
 </script>

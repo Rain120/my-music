@@ -16,26 +16,29 @@ export function getSingerList() {
         hostUin: 0,
         needNewCode: 0,
         platform: 'yqq',
-        g_tk: 2001751543
+        g_tk: 619563301
     })
     return jsonp(url, data, options)
 }
 /**
- * 
+ * @description 获取歌手详情
  * @param {*} singerId 
  */
 export function getSingerDetail(singerId) {
     const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg'
+
     const data = Object.assign({}, commonParams, {
         hostUin: 0,
         needNewCode: 0,
         order: 'listen',
         platform: 'h5page',
+        // platform: 'yqq',
         begin: 0,
-        num: 200,
+        num: 100,
+        // num: 30,
         songstatus: 1,
         singermid: singerId,
-        g_tk: 2001751543
+        g_tk: 619563301
     })
     return jsonp(url, data, options)
 }

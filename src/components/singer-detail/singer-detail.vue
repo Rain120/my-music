@@ -12,9 +12,6 @@
   import MusicList from 'components/music-list/music-list'
 
   export default {
-    components: {
-      MusicList
-    },
     data() {
       return {
         songs: []
@@ -42,7 +39,7 @@
         }
         getSingerDetail(this.singer.id).then((res) => {
           if (res.code === ERR_OK) {
-            console.log(res.data.list)
+            // console.log(res.data.list)
             this.songs = this._normalizeSongs(res.data.list)
           }
         })
@@ -58,6 +55,9 @@
         return ret
       }
     },
+    components: {
+      MusicList
+    }
   }
   
 </script>

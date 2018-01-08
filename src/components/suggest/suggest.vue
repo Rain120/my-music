@@ -35,7 +35,7 @@
   import Singer from 'common/js/singer'
 
   const TYPE_SINGER = 'singer'
-  const perpage = 20
+  const perpage = 20  // 每页返回条数
 
   export default {
     props: {
@@ -60,15 +60,19 @@
     methods: {
       search() {
         this.page = 1
-        this.hasMore = true
+        this.hasMore = true  // 还有更多数据
         this.$refs.suggest.scrollTo(0, 0)
         search(this.query, this.page, this.showSinger, perpage).then((res) => {
           if (res.code === ERR_OK) {
             this.result = this._genResult(res.data)
             this._checkMore(res.data)
+            console.log(this.result)
           }
         })
       },
+      /**
+       * @description 查询更多数据
+       */
       searchMore() {
         if (!this.hasMore) {
           return
@@ -78,6 +82,7 @@
           if (res.code === ERR_OK) {
             this.result = this.result.concat(this._genResult(res.data))
             this._checkMore(res.data)
+            console.log(this.result)
           }
         })
       },
@@ -116,12 +121,18 @@
       listScroll() {
         this.$emit('listScroll')
       },
+      /**
+       * @description 确认是否还有更多数据
+       */
       _checkMore(data) {
         const song = data.song
         if (!song.list.length || (song.curnum + song.curpage * perpage) >= song.totalnum) {
           this.hasMore = false
         }
       },
+      /**
+       * @description  获取结果
+       */
       _genResult(data) {
         let ret = []
         if (data.zhida && data.zhida.singerid) {

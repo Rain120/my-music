@@ -11,6 +11,7 @@
 <script type="text/ecmascript-6">
   import Tab from 'components/tab/tab'
   import Player from 'components/player/player'
+  
   export default {
     components: {
       Tab,

@@ -16,10 +16,7 @@
   const HOT_NAME = '热门'
   const HOT_SINGER_LEN = 10
 
-  export default {   
-    components: {
-      ListView
-    },
+  export default { 
     mixins: [playlistMixin],
     data() {
       return {
@@ -97,6 +94,9 @@
       ...mapMutations({
         setSinger: 'SET_SINGER'
       })
+    }, 
+    components: {
+      ListView
     }
   }
 </script>

@@ -27,7 +27,7 @@
       </scroll>
     </div>
     <div ref="searchResult" class="search-result" v-show="query">
-      <suggest ref="suggest" @select="saveSearch" @listScroll="blurInput" :query="query"></suggest>
+      <suggest :query="query" ref="suggest" @select="saveSearch" @listScroll="blurInput"></suggest>
     </div>
     <confirm ref="confirm" @confirm="clearSearchHistory" text="是否清空所有搜索历史" confirmBtnText="清空"></confirm>
     <router-view></router-view>
@@ -52,7 +52,8 @@
     },
     data() {
       return {
-        hotKey: []
+        hotKey: [],
+        query: ''
       }
     },
     computed: {
@@ -61,6 +62,12 @@
       }
     },
     methods: {
+      addQuery(query) {
+        this.$refs.searchBox.setQuery(query)
+      },
+      onQueryChange(query) {
+        this.query = query
+      },
       handlePlaylist(playList) {
         const bottom = playList.length > 0 ? '60px' : ''
         this.$refs.shortcutWrapper.style.bottom = bottom
@@ -75,6 +82,7 @@
         getHotKey().then((res) => {
           if (res.code === ERR_OK) {
             this.hotKey = res.data.hotkey.slice(0, 10)
+            console.log(this.hotKey)
           }
         })
       },

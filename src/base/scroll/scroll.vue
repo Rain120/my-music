@@ -22,13 +22,16 @@
         type: Array,
         default: null
       },
-      /**@augments
+      /**
        * @description 是否监听滚动组件
        */
       listenScroll: {
         type: Boolean,
         default: false
       },
+      /**@augments
+       * @description 是否上拉刷新
+       */
       pullup: {
         type: Boolean,
         default: false

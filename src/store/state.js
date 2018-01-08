@@ -9,8 +9,8 @@ const state = {
     sequenceList: [], //歌曲顺序列表
     mode: playMode.sequence, // 播放模式
     currentIndex: -1,
-    disc: {},
-    topList: {},
+    disc: {}, // 歌单列表
+    topList: {}, // 榜单列表
     searchHistory: loadSearch(),
     playHistory: loadPlay(),
     favoriteList: loadFavorite()

@@ -57,11 +57,14 @@
       color: $color-background
     .box
       flex: 1
+      height: 80%
       margin: 0 5px
+      padding-left: 5px
       line-height: 18px
       background: $color-highlight-background
       color: $color-text
-      font-size: $font-size-medium
+      outline-color: $color-text
+      font-size: $font-size-large
       &::placeholder
         color: $color-text-d
     .icon-dismiss
