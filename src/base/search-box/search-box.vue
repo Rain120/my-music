@@ -65,6 +65,7 @@
       color: $color-text
       outline-color: $color-text
       font-size: $font-size-large
+      outline: none
       &::placeholder
         color: $color-text-d
     .icon-dismiss

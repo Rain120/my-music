@@ -9,7 +9,7 @@
     props: {
       title: {
         type: String,
-        default: '加载ing...'
+        default: 'Loading...'
       }
     }
   }

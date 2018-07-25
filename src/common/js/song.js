@@ -46,10 +46,15 @@ export function createSong(musicData) {
         album: musicData.albumname,
         duration: musicData.interval,
         image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
+        // url: `http://ws.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=0`
         // url: `http://ws.stream.qqmusic.qq.com/${musicData.songid}.m4a?fromtag=46`
         // url: `http://dl.stream.qqmusic.qq.com/${musicData.songid}.m4a?fromtag=66`
         // url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=32`
-        url: `http://thirdparty.gtimg.com/C100${musicData.songmid}.m4a?fromtag=38`
+        // url: `http://thirdparty.gtimg.com/C100${musicData.songmid}.m4a?fromtag=38`
+        // url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=32`
+        // url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?vkey=${vkey}&fromtag=66`,
+        url: `http://ws.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=0&guid=126548448`
+        // url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}/${musicData.songid}.m4a?guid=263427534&fromtag=66`
     })
 }
 

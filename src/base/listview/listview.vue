@@ -291,6 +291,8 @@
       left: 0
       width: 100%
       .fixed-title
+        position relative
+        top -1px
         height: 30px
         line-height: 30px
         padding-left: 20px

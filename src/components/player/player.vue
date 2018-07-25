@@ -33,7 +33,6 @@
               <div class="playing-lyric">{{playingLiric}}</div>
             </div>
           </div>
-
           <scroll class="middle-r" ref="lyricList" :data="currentLyric && currentLyric.lines">
             <div class="lyric-wrapper">
               <div v-if="currentLyric">
@@ -47,6 +46,9 @@
           </scroll>
         </div>
 
+        <div class="download" @click.stop="download(currentSong)">
+          <img src="./download.png">
+        </div>
         <div class="bottom">
           <div class="dot-wrapper">
             <span class="dot" :class="{'active': currentShow === 'cd'}"></span>
@@ -160,6 +162,19 @@
       this.touch = {}
     },
     methods: {
+      download (song) {
+        var a = document.createElement('a');
+        var url = song.url;
+        var filename = `${this.getFilename(song)}.m4a`;
+        a.target = 'blank'
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }, 
+      getFilename(song) {
+        return `${song.name}-${song.singer}`
+      },
       back() {
         this.setFullScreen(false)
       },
@@ -559,6 +574,13 @@
               font-size: $font-size-medium
               &.current
                 color: $color-text
+      .download
+        position absolute
+        top 70%
+        left 48%
+        img
+          width 30px
+          height 30px
       .bottom
         position: absolute
         bottom: 50px

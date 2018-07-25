@@ -3,7 +3,7 @@
  * @type {Object}
  */
 export const commonParams = {
-        g_tk: 619563301,
+        g_tk: 776578293,
         inCharset: 'utf-8',
         outCharset: 'utf-8',
         notice: 0,

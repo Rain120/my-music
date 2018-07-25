@@ -1,40 +1,42 @@
 <!--
-getRecommend的时间是异步过程的，其实会出现几百ms的时间误差的，当我们还没提取到任何数据时，mounted已经执行了，为了确保能提取到数据时，可以使用v-if="recommends.length"
+getRecommend的时间是异步过程的，其实会出现几百ms的时间误差的，
+当我们还没提取到任何数据时，mounted已经执行了，为了确保能提取到数据时，
+可以使用v-if="recommends.length"
 -->
 <template>
   <div class="recommend" ref="recommend">
     <scroll ref="scroll" class="recommend-content" :data="discList">
-		<div>
-			<div v-if="recommends.length" class="slider-wrapper">
-				<slider>
-					<div v-for="(item, index) in recommends" :key="index">
-						<a :href="item.linkUrl">
-							<img class="needsclick" @load="loadImage" :src="item.picUrl">
-						</a> 
-					</div>
-				</slider>
-			</div>
-			<div class="recommend-list">
-				<h1 class="list-title">热门歌单推荐</h1>
-				<ul>
-					<li @click="selectItem(item)" :key="index" v-for="(item, index) in discList" class="item">
-						<div class="icon">
-							<img height="60" width="60" v-lazy="item.imgurl" />
+			<div>
+				<div v-if="recommends.length" class="slider-wrapper">
+					<slider>
+						<div v-for="(item, index) in recommends" :key="index">
+							<a :href="item.linkUrl">
+								<img class="needsclick" @load="loadImage" :src="item.picUrl">
+							</a> 
 						</div>
-						<div class="text">
-							<h2 class="name" v-html="item.creator.name"></h2>
-							<p class="desc" v-html="item.dissname"></p>
-						</div>
-					</li>
-				</ul>
+					</slider>
+				</div>
+				<div class="recommend-list">
+					<h1 class="list-title">热门歌单推荐</h1>
+					<ul>
+						<li @click="selectItem(item)" :key="index" v-for="(item, index) in discList" class="item">
+							<div class="icon">
+								<img height="60" width="60" v-lazy="item.imgurl" />
+							</div>
+							<div class="text">
+								<h2 class="name" v-html="item.creator.name"></h2>
+								<p class="desc" v-html="item.dissname"></p>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-		<div class="loading-container" v-show="!discList.length">
-			<loading></loading>
-		</div>
+			<div class="loading-container" v-show="!discList.length">
+				<loading></loading>
+			</div>
     </scroll>
 	<!-- 二级路由容器 -->
-	<router-view></router-view>
+		<router-view></router-view>
   </div>
 </template>
 
@@ -84,7 +86,7 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 				getDiscList().then( (res) => {
 					if (res.code === ERR_OK) {
 						this.discList = res.data.list
-						//console.log(res.data.list)
+						// console.log(res.data.list)
 					}
 				})
 			},
@@ -112,7 +114,7 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 	.recommend
 		position fixed
 		width 100%
-		top 50px
+		top 54px
 		bottom 0
 		.recommend-content
 			height 100%
@@ -154,5 +156,5 @@ getRecommend的时间是异步过程的，其实会出现几百ms的时间误差
 				position absolute
 				width 100%
 				top 50%
-				transform translateY(-50%)		
+				transform translateY(-50%)
 </style>

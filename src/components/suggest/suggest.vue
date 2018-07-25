@@ -19,7 +19,7 @@
       <loading v-show="hasMore" title=""></loading>
     </ul>
     <div v-show="!hasMore && !result.length" class="no-result-wrapper">
-      <no-result title="抱歉，暂无搜索结果"></no-result>
+      <no-result title="唉呀妈呀，咋没有呢o(╥﹏╥)o"></no-result>
     </div>
   </scroll>
 </template>
@@ -82,7 +82,7 @@
           if (res.code === ERR_OK) {
             this.result = this.result.concat(this._genResult(res.data))
             this._checkMore(res.data)
-            console.log(this.result)
+            // console.log(this.result)
           }
         })
       },

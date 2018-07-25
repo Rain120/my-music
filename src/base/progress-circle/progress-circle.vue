@@ -43,7 +43,7 @@
       transform-origin: center
       &.progress-background
         transform: scale(0.9)
-        stroke: $color-theme-d
+        stroke: #473a3a
       &.progress-bar
         transform: scale(0.9) rotate(-90deg)
         stroke: $color-theme

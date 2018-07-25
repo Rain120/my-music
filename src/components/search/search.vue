@@ -29,7 +29,7 @@
     <div ref="searchResult" class="search-result" v-show="query">
       <suggest :query="query" ref="suggest" @select="saveSearch" @listScroll="blurInput"></suggest>
     </div>
-    <confirm ref="confirm" @confirm="clearSearchHistory" text="是否清空所有搜索历史" confirmBtnText="清空"></confirm>
+    <confirm ref="confirm" @confirm="clearSearchHistory" text="你忍心吗o(╥﹏╥)o" confirmBtnText="狠心删除" cancelBtnText="让我再想想"></confirm>
     <router-view></router-view>
   </div>
 </template>
@@ -82,7 +82,7 @@
         getHotKey().then((res) => {
           if (res.code === ERR_OK) {
             this.hotKey = res.data.hotkey.slice(0, 10)
-            console.log(this.hotKey)
+            // console.log(this.hotKey)
           }
         })
       },
@@ -118,7 +118,7 @@
       margin: 20px
     .shortcut-wrapper
       position: fixed
-      top: 178px
+      top: 130px
       bottom: 0
       width: 100%
       .shortcut

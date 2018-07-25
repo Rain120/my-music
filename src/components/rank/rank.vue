@@ -54,7 +54,7 @@
         getTopList().then((res) => {
           if (res.code === ERR_OK) {
             this.topList = res.data.topList
-            console.log(this.topList)
+            // console.log(this.topList)
           }
         })
       },
@@ -76,7 +76,7 @@
   .rank
     position: fixed
     width: 100%
-    top: 88px
+    top: 54px
     bottom: 0
     .toplist
       height: 100%
