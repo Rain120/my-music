@@ -26,8 +26,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         historyApiFallback: true,
         hot: true,
         compress: true,
-        host: process.env.HOST ||  config.dev.host,
-        port: process.env.PORT ||  config.dev.port,
+        host: process.env.HOST || config.dev.host,
+        port: process.env.PORT || config.dev.port,
         open: config.dev.autoOpenBrowser,
         overlay: config.dev.errorOverlay ? {
             warnings: false,
@@ -47,7 +47,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
              * @param  {Function} params: req.query  [参数]
              * @return {[type]}           [description]
              */
-            apiRoutes.get('/api/getDiscList', function(req, res) {
+            apiRoutes.get('/api/getDiscList', function (req, res) {
                 var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
                 axios.get(url, {
                     headers: {
@@ -62,7 +62,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
                     console.log(e)
                 })
             })
-            apiRoutes.get('/api/lyric', function(req, res) {
+            apiRoutes.get('/api/lyric', function (req, res) {
                 var url = 'https://c.y.qq.com/lyric/fcgi-bin/fcg_query_lyric_new.fcg'
                 axios.get(url, {
                     headers: {
@@ -84,12 +84,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
                     console.log(e)
                 })
             })
-            apiRoutes.get('/api/getVKey', function(req, res) {
-                var url = 'https://c.y.qq.com/base/fcgi-bin/fcg_music_express_mobile3.fcg'
+            apiRoutes.get('/api/getVKey', function (req, res) {
+                var url = 'https://u.y.qq.com/cgi-bin/musicu.fcg'
                 axios.get(url, {
                     headers: {
                         referer: 'https://y.qq.com/portal/player.html',
-                        host: 'c.y.qq.com'
+                        host: 'u.y.qq.com',
+                        'content-type': 'application/x-www-form-urlencoded',
                     },
                     params: req.query
                 }).then((response) => {
@@ -106,7 +107,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
                     console.log(e)
                 })
             })
-            apiRoutes.get('/api/getSongList', function(req, res) {
+            apiRoutes.get('/api/getSongList', function (req, res) {
                 var url = 'https://c.y.qq.com/qzone/fcg-bin/fcg_ucc_getcdinfo_byids_cp.fcg'
                 axios.get(url, {
                     headers: {
@@ -116,7 +117,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
                     params: req.query
                 }).then((response) => {
                     var ret = response.data
-                        // 返回的是JSONP格式的话
+                    // 返回的是JSONP格式的话
                     if (typeof ret === 'string') {
                         var reg = /^\w+\(({.+})\)$/
                         var matches = ret.match(reg)
@@ -157,7 +158,7 @@ module.exports = new Promise((resolve, reject) => {
         } else {
             // publish the new Port, necessary for e2e tests
             process.env.PORT = port
-                // add port to devServer config
+            // add port to devServer config
             devWebpackConfig.devServer.port = port
 
             // Add FriendlyErrorsPlugin

@@ -9,7 +9,7 @@
   import {getSongList} from 'api/recommend'
   import {ERR_OK} from 'api/config'
   import {mapGetters} from 'vuex'
-  import {createSong} from 'common/js/song'
+  import { createSong, getPlayLists } from 'common/js/song'
 
   export default {
     data() {
@@ -48,7 +48,9 @@
         let ret = []
         list.forEach((musicData) => {
           if (musicData.songid && musicData.albumid) {
-            ret.push(createSong(musicData))
+            getPlayLists(musicData.songmid).then(res => {
+              ret.push(createSong({ ...musicData, playLists: res }))
+            })
           }
         })
         return ret

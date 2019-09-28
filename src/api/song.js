@@ -1,24 +1,46 @@
 import { commonParams } from './config'
 import axios from 'axios'
 
-export function getVKey (mid) {
+export function getVKey (songmid) {
     const url = '/api/getVKey'
     let _guid = Math.round(2147483647 * Math.random()) * (new Date).getUTCMilliseconds() % 1e10
-    const data = Object.assign({}, commonParams, {
-        songmid: mid,
-        filename: `C400${mid}.m4a`,
-        platform: 'yqq',
-        format: 'json',
-        needNewCode: 0,
-        cid: 205361747,
-        guid: _guid,
-        hostUin: 0,
+    let guid = _guid ? _guid + '' : '1429839143';
+    let data = {
+        req: {
+        module: "CDN.SrfCdnDispatchServer",
+        method: "GetCdnDispatch",
+        param: {
+            guid,
+            calltype: 0,
+            userip: ""
+        }
+        },
+        req_0: {
+        module: "vkey.GetVkeyServer",
+        method: "CgiGetVkey",
+        param: {
+            guid,
+            songmid: [songmid],
+            songtype: [0],
+            uin: "0",
+            loginflag: 1,
+            platform: "20"
+        }
+        },
+        comm: {
         uin: 0,
-        callback: `MusicJsonCallback${(Math.random() + "").replace("0.", "")}`,
-    })
+        format: "json",
+        ct: 24,
+        cv: 0
+        }
+    }
+    let params = Object.assign({
+        format: 'json',
+        data: JSON.stringify(data),
+    });
 
     return axios.get(url, {
-        params: data
+        params
     }).then((res) => {
         return Promise.resolve(res.data)
     })
