@@ -61,7 +61,7 @@ export function getPlayLists(songmid) {
 
 export function createSong(musicData) {
     let url = ''
-    musicData.playLists.map(item => /com\/C100/.test(item) && (url = item))
+    musicData.playLists.map(item => /com\/C100/g.test(item) && (url = item))
     return new Song({
         id: musicData.songid,
         mid: musicData.songmid,
@@ -78,7 +78,7 @@ export function createSong(musicData) {
         // url: `http://thirdparty.gtimg.com/C100${musicData.songmid}.m4a?fromtag=38`
         // url: `http://isure.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=32`
         // url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}.m4a?vkey=${vkey}&fromtag=66`,
-        url: url? url : `http://ws.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=0&guid=126548448`,
+        url: url.length ? url : `http://ws.stream.qqmusic.qq.com/C100${musicData.songmid}.m4a?fromtag=0&guid=126548448`,
         // url: `http://dl.stream.qqmusic.qq.com/C400${musicData.songmid}/${musicData.songid}.m4a?guid=263427534&fromtag=66`
     })
 }
